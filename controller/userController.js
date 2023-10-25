@@ -35,7 +35,7 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-  console.log(req.body.user);
+  console.log(req.body);
   const {email,password } = req.body.user;
   
   console.log("loginuser");
@@ -45,9 +45,12 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new Error("All fields are mandatory!");
   }
   const user = await UsersDB.findOne({ email });
-  console.log("register");
   //compare password with hashedpassword
+  let userid;
+  let userEmail;
   if (user && (await bcrypt.compare(password, user.password))) {
+    userid = user._id
+    userEmail = user.email
     const accessToken = jwt.sign(
       {
         user: {
@@ -59,7 +62,7 @@ const loginUser = asyncHandler(async (req, res) => {
       ACCESS_TOKEN_SECRET,
       { expiresIn: "60m" }
     );
-    res.status(200).json({ accessToken });
+    res.status(200).json({ accessToken,userid,userEmail });
   } else {
     res.status(401);
     throw new Error("email or password is not valid");

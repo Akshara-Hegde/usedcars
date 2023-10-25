@@ -15,6 +15,18 @@ const users = mongoose.Schema(
       type: String,
       required: [true, "Please add the user password"],
     },
+    fav: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "CarDetails",
+      },
+    ],
+    my_post: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "CarDetails",
+      },
+    ],
   },
   {
     timestamps: true,

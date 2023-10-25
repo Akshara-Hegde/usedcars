@@ -1,9 +1,7 @@
 // like KMs on Odometer, Major Scratches,
 // Original Paint, Number of accidents reported, Number of previous buyers, Registration Place
 
-
 const mongoose = require('mongoose')
-
 
 const inventorySchema = mongoose.Schema({
   id: mongoose.Types.ObjectId,
@@ -51,6 +49,11 @@ const inventorySchema = mongoose.Schema({
   photo:{
     type: String,
     required: true
+  },
+  my_post:{
+    type: String,    
+    required: true,
+    default:"Owner"
   }
 },{
     timestamps : true
